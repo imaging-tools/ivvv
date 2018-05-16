@@ -3,7 +3,8 @@ import traittypes
 import ipywidgets
 
 
-class Volume(ipywidgets.DOMWidget):
+@ipywidgets.register
+class VolumeWidget(ipywidgets.DOMWidget):
     _view_name = traitlets.Unicode("VolumeView").tag(sync=True)
 
     _view_module = traitlets.Unicode("volume").tag(sync=True)
