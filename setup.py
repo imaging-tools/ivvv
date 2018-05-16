@@ -140,7 +140,6 @@ setup_args = {
     ],
     'install_requires': [
         'ipywidgets>=7.0.0',
-        'traittypes>=0.1.0',
         'numpy>=1.14.3',
         'ipydatawidgets>=3.0.0'
     ],
