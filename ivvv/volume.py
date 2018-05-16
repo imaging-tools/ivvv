@@ -16,7 +16,7 @@ class VolumeWidget(ipywidgets.DOMWidget):
     metadata = traitlets.Dict({"foo": "bar"})
 
 
-def volread(image):
+def volshow(image):
     volume_widget = VolumeWidget()
 
     volume_widget.image = image
