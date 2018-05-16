@@ -1,3 +1,5 @@
+import numpy
+
 import ivvv.volume
 
 
@@ -11,3 +13,11 @@ class TestVolume:
         widget = ivvv.volume.VolumeWidget()
 
         assert widget.metadata == {"foo": "bar"}
+
+
+def test_volshow():
+    image = numpy.random.random((10, 256, 256, 3))
+
+    widget = ivvv.volume.volshow(image)
+
+    numpy.testing.assert_array_equal(widget.image, image)
