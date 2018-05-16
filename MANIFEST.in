@@ -1,0 +1,2 @@
+recursive-include ivvv/static *.*
+include ivvv.json
