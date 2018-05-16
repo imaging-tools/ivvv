@@ -19,6 +19,8 @@ UseUseUse
 
 ## Detailed docs
 
+#### Schema
+``` json
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "title": "Allen Volume Format image",
@@ -34,11 +36,11 @@ UseUseUse
             "type": "integer"
         },
         "channels": {
-            "description": "XXX",
+            "description": "Specifies number of channels.",
             "type": "integer",
         },
         "channel_names": {
-            "description": "XXX",
+            "description": "Names of each of the channels to be rendered, in order. Unique identifier expected.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -47,74 +49,86 @@ UseUseUse
             "uniqueItems": true
         }
          "rows": {
-            "description": "XXX",
+            "description": "Number of rows in tile array in each image.",
             "type": "integer"
         },
          "cols": {
-            "description": "XXX",
+            "description": "Number of columns in tile array in each image.",
             "type": "integer"
         },
         "tiles": {
-            "description": "XXX",
+            "description": "Number of tiles, which must be equal to the number of z-slices in original volumetric data.",
             "type": "integer"
         },
         "tile_width": {
-            "description": "XXX",
+            "description": "Width of each tile in volumetric dataset to be rendered, in pixels.",
             "type": "integer"
         },
         "tile_height": {
-            "description": "XXX",
+            "description": "Height of each tile in volumetric dataset to be rendered, in pixels.",
             "type": "integer"
         },
         "atlas_width": {
-            "description": "XXX",
+            "description": "Total width of volumetric object containing all the tiles, in pixels.",
             "type": "integer"
         },
         "atlas_height": {
-            "description": "XXX",
+            "description": "Total height of volumetric object containing all the tiles, in pixels.",
             "type": "integer"
         },
         "pixel_size_x": {
-            "description": "XXX",
+            "description": "Size of pixels in volumetric data to be rendered, in x-dimension, unitless.",
             "type": "float"
         },
         "pixel_size_y": {
-            "description": "XXX",
+            "description": "Size of pixels in volumetric data to be rendered, in y-dimension, unitless.",
             "type": "float"
         },
          "pixel_size_z": {
-            "description": "XXX",
+            "description": "Size of pixels in volumetric data to be rendered, in z-dimension, unitless.",
             "type": "float"
         },
+         "name": {
+            "description": "Base name of images.",
+            "type": "string"
+        },
         "images": {
-            "XXX": "array",
-            "items": {
-                "type": "string"
-            },
+            "description": "List of images as defined by name and channel array; should correspond to *name*.",
+            "type": "array",
+            "items": {             
+                "name": {
+                    "description": "Name of single image item.",
+                    "type": "string",
+             },
+                "channels": {
+                "description": "Channels to be rendered. Unique identifiers expected.",
+                "type": "array",
+                "items": {
+                "type": "integer"
+             },
+                "minItems": 1,
+                "uniqueItems": true
+             }
             "minItems": 1,
             "uniqueItems": true
-        }
-        "name": {
-            "description": "XXX",
-            "type": "string"
-        },
-        "status": {
-            "description": "XXX",
-            "type": "string"
-        },
+            }
+        } 
          "version": {
-            "description": "XXX",
+            "description": "Current version of the schema.",
             "type": "string"
         },
          "aicsImageVersion": {
-            "description": "XXX",
+            "description": "Version of aicsImage python library that generated the employed texture map.",
             "type": "string"
         },
     },
-    "required": ["XXX", "XXX", "XXX"]
+    "required": ["width", "height", "channels", "channel_names", "rows", "cols", "tiles", "tile_width", "tile_height", "atlas_width", "atlas_height", "pixel_size_x", "pixel_size_y", "pixel_size_z", "name", "images", "version"]
 }
+``` 
+#### Nice example
 
 AICS-10_5_5.ome.tif_atlas.json
+``` json
 {
   "width":306,
   "height":494,
@@ -132,7 +146,7 @@ AICS-10_5_5.ome.tif_atlas.json
   "pixel_size_z":0.29,
   "images":[{"name":"AICS-10_5_5.ome.tif_atlas_0.png","channels":[0,1,2]},{"name":"AICS-10_5_5.ome.tif_atlas_1.png","channels":[3,4,5]},{"name":"AICS-10_5_5.ome.tif_atlas_2.png","channels":[6,7,8]}],
   "name":"AICS-10_5_5",
-  "status":"OK",
   "version":"0.0.0",
   "aicsImageVersion":"0.3.0"
   }
+  ```
