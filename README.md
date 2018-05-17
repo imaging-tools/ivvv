@@ -1,17 +1,22 @@
 # ivvv
-The image voxel volume viewer (pronounced ivy)
+The *image voxel volume viewer* (pronounced _ivy_).  
 
 ## Wat?
-
-DescribeMe
+*ivvv* is an attmept to provide a lightweight, minimal volume viewer for interactive data exploration in jupyter.
+(This is a jupyter widget that provide volumetric rendering given a multiple channel zstack as a numpy array.)
 
 ## Why?
+~We wanna look at stuff in notebooks~
+Most 3D viewers are far too heavyweight to use for quick visualization tasks when experimenting with tractably-sized (analyzing, checking, ...) 3D volumetric datasets. 
 
-B/c (but more too)
+## Who?
+Envisioned user group is anyone who wants a robust and quick way to interactively interrogate volumetric data as part of their workflows; domain which motivated development is multi-channel volumetric light/fluorescence microscopy datasets.
+
+Stripped down version of 3D renderes used 3D cell viewer.
+Standard scientific python toolkit.
 
 ## How?
-
-UseUseUse
+We've used a stripped down version of 3D rendering provided by the Allen Cell Explorer's 3D Cell Viewer.
 
 ### Install
 
