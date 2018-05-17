@@ -7,6 +7,25 @@ import scipy.misc
 __all__ = ["img_prep"]
 
 
+def resize(image, output_shape):
+    response = numpy.zeros((image.shape[0], *output_shape))
+
+    for index, image in enumerate(image):
+        response[index] = skimage.transform.resize(image, output_shape, mode="reflect")
+
+    return response
+
+
+def resize_volume(image, output_shape):
+    channels = image.shape[-1]
+
+    response = numpy.zeros((image.shape[0], *output_shape, channels))
+
+    for channel_index in range(channels):
+        response[..., channel_index] = resize(image[..., channel_index], output_shape)
+
+    return response
+
 def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)):
     tile_width, tile_height, stack_height = aics_image.shape[1], aics_image.shape[2], aics_image.shape[0]
     # maintain aspect ratio of images
@@ -105,8 +124,6 @@ def img_prep(img, shape=(128, 128)):
     # Norm and convert to 8 bit
     img = numpy.multiply(255, _normalize(img)).astype(numpy.uint8)
     #  Resize
-    output_shape = 1.0, shape[1] / img.shape[2], shape[0] / img.shape[1], 1.0
-
-    img = scipy.ndimage.zoom(img, output_shape, order=2)
+    img = resize_volume(img, (shape[0], shape[1]))
 
     return img
