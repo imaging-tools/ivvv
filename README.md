@@ -54,12 +54,12 @@ We've used a stripped down version of 3D rendering provided by the Allen Cell Ex
             },
             "minItems": 1,
             "uniqueItems": true
-        }
-         "rows": {
+        },
+        "rows": {
             "description": "Number of rows in tile array in each image.",
             "type": "integer"
         },
-         "cols": {
+        "cols": {
             "description": "Number of columns in tile array in each image.",
             "type": "integer"
         },
@@ -115,11 +115,11 @@ We've used a stripped down version of 3D rendering provided by the Allen Cell Ex
              },
                 "minItems": 1,
                 "uniqueItems": true
-             }
+             },
             "minItems": 1,
             "uniqueItems": true
             }
-        } 
+        }, 
          "version": {
             "description": "Current version of the schema.",
             "type": "string"
