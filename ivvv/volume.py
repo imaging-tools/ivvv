@@ -6,9 +6,9 @@ import traitlets
 
 @ipywidgets.register
 class VolumeWidget(ipywidgets.DOMWidget):
-    _view_name = traitlets.Unicode("VolumeView").tag(sync=True)
+    _view_name = traitlets.Unicode("VolumeWidgetView").tag(sync=True)
 
-    _view_module = traitlets.Unicode("volume").tag(sync=True)
+    _view_module = traitlets.Unicode("ivvv").tag(sync=True)
 
     _view_module_version = traitlets.Unicode("1.0.0").tag(sync=True)
 
