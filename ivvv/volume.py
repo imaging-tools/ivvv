@@ -17,11 +17,15 @@ class VolumeWidget(ipywidgets.DOMWidget):
 
     size = traitlets.Tuple().tag(sync=True)
 
+    dimensions = traitlets.Dict().tag(sync=True)
+
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
 
 def volshow(image, size=(256, 256)):
     volume_widget = VolumeWidget()
+
+    volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image)
 
     volume_widget.image = ivvv.img_prep.img_prep(image)
 

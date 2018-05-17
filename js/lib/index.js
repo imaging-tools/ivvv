@@ -10,6 +10,8 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             const size = this.model.get("size");
 
+            const dimensions = this.model.get("dimensions");
+
             var volsize = volume.shape[1]*volume.shape[2]*volume.shape[3];
             var channels = volume.shape[0];
             var tiles = volume.shape[1]; // slices
