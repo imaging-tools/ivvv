@@ -81,7 +81,6 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             aimg.setDensity(0.1);
             aimg.setBrightness(1.0);
 
-            context.setAutoRotate(true);
             setTimeout(() => {
                 context.resize(this.el, size[0], size[1]);
             }, 100);
