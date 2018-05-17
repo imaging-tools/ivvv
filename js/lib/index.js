@@ -82,6 +82,7 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             aimg.setBrightness(1.0);
 
             context.setAutoRotate(true);
+            context.resize(this.el, shape[0], shape[1]);
         }
     });
 
