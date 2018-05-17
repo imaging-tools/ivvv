@@ -1,5 +1,7 @@
 import numpy as np
 import scipy.ndimage
+import skimage.exposure
+
 
 __all__ = ["img_prep"]
 
@@ -37,4 +39,5 @@ def img_prep(img, max_dim=128):
     img = np.multiply(255, _normalize(img)).astype(np.uint8)
     #  Resize
     img = _resize(img, max_dim)
+
     return [img[:,:,:,i] for i in range(img.shape[-1])]

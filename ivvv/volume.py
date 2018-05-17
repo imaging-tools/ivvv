@@ -1,3 +1,4 @@
+import ivvv.img_prep
 import ipydatawidgets
 import ipywidgets
 import numpy
@@ -12,7 +13,7 @@ class VolumeWidget(ipywidgets.DOMWidget):
 
     _view_module_version = traitlets.Unicode("1.0.0").tag(sync=True)
 
-    image = ipydatawidgets.NDArray(numpy.zeros(0)).tag(sync=True, **ipydatawidgets.array_serialization)
+    image = ipydatawidgets.NDArray(numpy.zeros(0, dtype=numpy.uint8)).tag(sync=True, **ipydatawidgets.array_serialization)
 
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
@@ -24,6 +25,6 @@ class VolumeWidget(ipywidgets.DOMWidget):
 def volshow(image):
     volume_widget = VolumeWidget()
 
-    volume_widget.image = image
-
+    volume_widget.image = ivvv.img_prep.img_prep(image)
+    print(volume_widget.image.dtype)
     return volume_widget

@@ -142,7 +142,8 @@ setup_args = {
         'ipywidgets>=7.0.0',
         'numpy>=1.14.3',
         'ipydatawidgets>=3.0.0',
-        'scipy>=1.0.0'
+        'scipy>=1.0.0',
+        'scikit-image>=0.13.0'
     ],
     'packages': find_packages(),
     'zip_safe': False,

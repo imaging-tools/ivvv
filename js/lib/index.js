@@ -8,24 +8,30 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             const volume = this.model.get("image");
 
+            var volsize = volume.shape[1]*volume.shape[2]*volume.shape[3];
+            var channels = volume.shape[0];
+            var tiles = volume.shape[1]; // slices
+
+            debugger;
+
             let context = new volumeViewerPackage.AICSview3d(this.el);
 
             // PREPARE SOME TEST DATA TO TRY TO DISPLAY A VOLUME.
             let imgdata = {
-                "width": 306,
-                "height": 494,
-                "channels": 9,
+                "width": 256,
+                "height": 256,
+                "channels": channels,
                 "channel_names": ["DRAQ5", "EGFP", "Hoechst 33258", "TL Brightfield", "SEG_STRUCT", "SEG_Memb", "SEG_DNA", "CON_Memb", "CON_DNA"],
-                "rows": 7,
-                "cols": 10,
-                "tiles": 65,
-                "tile_width": 204,
-                "tile_height": 292,
-                "atlas_width": 2040,
-                "atlas_height": 2044,
-                "pixel_size_x": 0.065,
-                "pixel_size_y": 0.065,
-                "pixel_size_z": 0.29,
+                "rows": 2,
+                "cols": 5,
+                "tiles": tiles,
+                "tile_width": volume.shape[2],
+                "tile_height": volume.shape[3],
+                "atlas_width": 5 * volume.shape[2],
+                "atlas_height": 2 * volume.shape[3],
+                "pixel_size_x": 1,
+                "pixel_size_y": 1,
+                "pixel_size_z": 1,
                 // "images" is now optional and could be replaced with "volumedata"
                 // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
                 // according to tile_width*tile_height*tiles (first row of first plane is the first data in 
@@ -59,17 +65,7 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             var channelVolumes = [];
             for (var i = 0; i < imgdata.channels; ++i) {
-                //var sv = AICSchannel.createTorus(this.imageInfo.tile_width, this.imageInfo.tile_height, this.z, 12, 6);
-                //var sv = AICSchannel.createCylinder(this.imageInfo.tile_width, this.imageInfo.tile_height, this.z, 16, 16);
-                if (i % 2 === 0) {
-                    var sv = volumeViewerPackage.AICSmakeVolumes.createSphere(imgdata.tile_width, imgdata.tile_height, imgdata.tiles, 16);
-                    channelVolumes.push(sv);
-                }
-                else{
-                    var sv = volumeViewerPackage.AICSmakeVolumes.createTorus(imgdata.tile_width, imgdata.tile_height, imgdata.tiles, 32, 8);
-                    channelVolumes.push(sv);
-
-                }
+                channelVolumes.push(new Uint8Array(volume.buffer.buffer, i*volsize, volsize));
             }
 
             imgdata.volumedata = channelVolumes;
@@ -78,11 +74,12 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             context.setCameraMode("3D");
 
-            context.setImage(aimg, () => {console.log("")});
+            context.setImage(aimg, () => {console.log("data channel loaded")});
 
-            aimg.setUniform("DENSITY", 0.1, true, true);
+            aimg.setDensity(0.1);
+            aimg.setBrightness(1.0);
 
-            aimg.setUniform("BRIGHTNESS", 1.0, true, true);
+            context.setAutoRotate(true);
         }
     });
 
