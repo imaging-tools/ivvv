@@ -8,7 +8,7 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             const volume = this.model.get("image");
 
-            const shape = this.model.get("shape");
+            const size = this.model.get("size");
 
             var volsize = volume.shape[1]*volume.shape[2]*volume.shape[3];
             var channels = volume.shape[0];
@@ -82,7 +82,7 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             aimg.setBrightness(1.0);
 
             context.setAutoRotate(true);
-            context.resize(this.el, shape[0], shape[1]);
+            context.resize(this.el, size[0], size[1]);
         }
     });
 

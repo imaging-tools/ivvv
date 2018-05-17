@@ -15,21 +15,21 @@ class VolumeWidget(ipywidgets.DOMWidget):
 
     image = ipydatawidgets.NDArray(numpy.zeros(0, dtype=numpy.uint8)).tag(sync=True, **ipydatawidgets.array_serialization)
 
-    shape = traitlets.Tuple().tag(sync=True)
+    size = traitlets.Tuple().tag(sync=True)
 
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
     @traitlets.default('layout')
     def _default_layout(self):
-        return ipywidgets.Layout(height='300px', width='300px')
+        return ipywidgets.Layout(height=self.size[0], width=self.size[1])
 
 
-def volshow(image, shape=(256, 256)):
+def volshow(image, size=(256, 256)):
     volume_widget = VolumeWidget()
 
     volume_widget.image = ivvv.img_prep.img_prep(image)
 
-    if shape:
-        volume_widget.shape = shape
+    if size:
+        volume_widget.size = size
 
     return volume_widget
