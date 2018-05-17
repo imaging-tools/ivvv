@@ -7,7 +7,7 @@ import scipy.misc
 __all__ = ["img_prep"]
 
 
-def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 4.0)):
+def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)):
     tile_width, tile_height, stack_height = aics_image.shape[1], aics_image.shape[2], aics_image.shape[0]
     # maintain aspect ratio of images
     # initialize atlas with one row of all slices
