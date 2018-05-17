@@ -1,9 +1,9 @@
 import {AICSview3d, ACISmakeVolumes, AICSvolumeDrawable} from 'volume-viewer';
 import {DOMWidgetView} from '@jupyter-widgets/base';
 
-require.undef("volume");
+require.undef("ivvv");
 
-define("volume", ["@jupyter-widgets/base"], function(widgets) {
+define("ivvv", ["@jupyter-widgets/base"], function(widgets) {
     const VolumeWidgetView = widgets.DOMWidgetView.extend({
         render: function () {
             const metadata = this.model.get("metadata");
