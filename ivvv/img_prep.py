@@ -1,11 +1,13 @@
 import math
 import numpy
 import scipy.ndimage
+import skimage.transform
+import scipy.misc
 
 __all__ = ["img_prep"]
 
 
-def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)):
+def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 4.0)):
     tile_width, tile_height, stack_height = aics_image.shape[1], aics_image.shape[2], aics_image.shape[0]
     # maintain aspect ratio of images
     # initialize atlas with one row of all slices
@@ -81,10 +83,10 @@ def _resize(img, max_dim=128):
     else:
         new_size = [max_dim / s if s >= max_dim else 1.0 for s in img.shape[:3]]
         new_size.append(1.0)  # for channel
-        return scipy.ndimage.zoom(img, new_size)
+        return scipy.ndimage.zoom(img, new_size, order=2)
 
 
-def img_prep(img, max_dim=128):
+def img_prep(img, shape=(128, 128)):
     """Given an input n dimensional image, prep for display
 
     Parameters
@@ -93,6 +95,7 @@ def img_prep(img, max_dim=128):
         Numpy array in (plane, row, column, channel) format
     size_lim : int
         largest dimension allowed
+    shape : tuple(int)
     
     Returns
     -------
@@ -102,6 +105,8 @@ def img_prep(img, max_dim=128):
     # Norm and convert to 8 bit
     img = numpy.multiply(255, _normalize(img)).astype(numpy.uint8)
     #  Resize
-    img = _resize(img, max_dim)
+    output_shape = 1.0, shape[1] / img.shape[2], shape[0] / img.shape[1], 1.0
+
+    img = scipy.ndimage.zoom(img, output_shape, order=2)
 
     return img

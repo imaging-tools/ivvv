@@ -22,12 +22,14 @@ class VolumeWidget(ipywidgets.DOMWidget):
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
 
-def volshow(image, size=(256, 256)):
+def volshow(image, size=(256, 256), spacing=(1.0, 1.0, 1.0)):
     volume_widget = VolumeWidget()
 
-    image = ivvv.img_prep.img_prep(image)
+    volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image, physical_pixel_size=spacing)
 
-    volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image)
+    image = ivvv.img_prep.img_prep(image, shape=(volume_widget.dimensions["tile_height"], volume_widget.dimensions["tile_width"]))
+
+    volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image, physical_pixel_size=spacing)
 
     volume_widget.image = [image[:, :, :, index] for index in range(image.shape[-1])]
 
