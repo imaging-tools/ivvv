@@ -18,7 +18,7 @@ def _resize(img, max_dim=128):
     else:
         new_size = [max_dim/s if s>=max_dim else 1.0 for s in img.shape[:3]]
         new_size.append(1.0) # for channel
-        return scipy.ndimage.zoom(img, new_size)
+        return scipy.ndimage.zoom(img, new_size, order=1)
 
 def img_prep(img, max_dim=128):
     """Given an input n dimensional image, prep for display

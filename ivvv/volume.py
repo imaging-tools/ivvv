@@ -19,10 +19,6 @@ class VolumeWidget(ipywidgets.DOMWidget):
 
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
-    @traitlets.default('layout')
-    def _default_layout(self):
-        return ipywidgets.Layout(height=self.size[0], width=self.size[1])
-
 
 def volshow(image, size=(256, 256)):
     volume_widget = VolumeWidget()
