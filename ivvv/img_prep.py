@@ -104,4 +104,4 @@ def img_prep(img, max_dim=128):
     #  Resize
     img = _resize(img, max_dim)
 
-    return [img[:, :, :, i] for i in range(img.shape[-1])]
+    return img

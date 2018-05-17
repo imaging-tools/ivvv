@@ -25,9 +25,11 @@ class VolumeWidget(ipywidgets.DOMWidget):
 def volshow(image, size=(256, 256)):
     volume_widget = VolumeWidget()
 
+    image = ivvv.img_prep.img_prep(image)
+
     volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image)
 
-    volume_widget.image = ivvv.img_prep.img_prep(image)
+    volume_widget.image = [image[:, :, :, index] for index in range(image.shape[-1])]
 
     if size:
         volume_widget.size = size
