@@ -21,33 +21,34 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             let context = new volumeViewerPackage.AICSview3d(this.el);
 
             // PREPARE SOME TEST DATA TO TRY TO DISPLAY A VOLUME.
-            let imgdata = {
-                "width": 256,
-                "height": 256,
-                "channels": channels,
-                "channel_names": ["DRAQ5", "EGFP", "Hoechst 33258", "TL Brightfield", "SEG_STRUCT", "SEG_Memb", "SEG_DNA", "CON_Memb", "CON_DNA"],
-                "rows": 2,
-                "cols": 5,
-                "tiles": tiles,
-                "tile_width": volume.shape[2],
-                "tile_height": volume.shape[3],
-                "atlas_width": 5 * volume.shape[2],
-                "atlas_height": 2 * volume.shape[3],
-                "pixel_size_x": 1,
-                "pixel_size_y": 1,
-                "pixel_size_z": 1,
-                // atlas_width === cols*tile_width
-                // atlas_height === rows*tile_height
-                // for webgl reasons, it is best for atlas_width and atlas_height to be <= 2048 
-                // and ideally a power of 2.
-                // tiles <= rows*cols, tiles is number of z slices
-                // width := original full size image width
-                // height := original full size image height
+            let imgdata = dimensions;
+            // let imgdata = {
+            //     "width": 256,
+            //     "height": 256,
+            //     "channels": channels,
+            //     "channel_names": ["DRAQ5", "EGFP", "Hoechst 33258", "TL Brightfield", "SEG_STRUCT", "SEG_Memb", "SEG_DNA", "CON_Memb", "CON_DNA"],
+            //     "rows": 2,
+            //     "cols": 5,
+            //     "tiles": tiles,
+            //     "tile_width": volume.shape[2],
+            //     "tile_height": volume.shape[3],
+            //     "atlas_width": 5 * volume.shape[2],
+            //     "atlas_height": 2 * volume.shape[3],
+            //     "pixel_size_x": 1,
+            //     "pixel_size_y": 1,
+            //     "pixel_size_z": 1,
+            //     // atlas_width === cols*tile_width
+            //     // atlas_height === rows*tile_height
+            //     // for webgl reasons, it is best for atlas_width and atlas_height to be <= 2048 
+            //     // and ideally a power of 2.
+            //     // tiles <= rows*cols, tiles is number of z slices
+            //     // width := original full size image width
+            //     // height := original full size image height
 
-                "name": "AICS-10_5_5",
-                "version": "0.0.0",
-                "aicsImageVersion": "0.3.0"
-            };
+            //     "name": "AICS-10_5_5",
+            //     "version": "0.0.0",
+            //     "aicsImageVersion": "0.3.0"
+            // };
 
             // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
             // according to tile_width*tile_height*tiles (first row of first plane is the first data in 
