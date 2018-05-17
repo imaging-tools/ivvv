@@ -10,8 +10,6 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             let context = new volumeViewerPackage.AICSview3d(this.el);
 
-            context.resize();
-
             // PREPARE SOME TEST DATA TO TRY TO DISPLAY A VOLUME.
             let imgdata = {
                 "width": 306,
@@ -88,7 +86,6 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
         }
     });
 
-    debugger;
     return {
         VolumeWidgetView: VolumeWidgetView
     }
