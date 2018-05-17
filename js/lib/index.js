@@ -36,10 +36,6 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
                 "pixel_size_x": 1,
                 "pixel_size_y": 1,
                 "pixel_size_z": 1,
-                // "images" is now optional and could be replaced with "volumedata"
-                // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
-                // according to tile_width*tile_height*tiles (first row of first plane is the first data in 
-                // the layout, then second row of first plane, etc)
                 // atlas_width === cols*tile_width
                 // atlas_height === rows*tile_height
                 // for webgl reasons, it is best for atlas_width and atlas_height to be <= 2048 
@@ -48,25 +44,14 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
                 // width := original full size image width
                 // height := original full size image height
 
-                // (an alternate volumedata input format could be "atlasdata" where the data is laid out as
-                // a pre-tiled atlas image ready for upload. Arguably this data layout is an implementation-
-                // specific detail / optimization that clients don't need to know about)
-                "images": [{
-                    "name": "AICS-10_5_5.ome.tif_atlas_0.png",
-                    "channels": [0, 1, 2]
-                }, {
-                    "name": "AICS-10_5_5.ome.tif_atlas_1.png",
-                    "channels": [3, 4, 5]
-                }, {
-                    "name": "AICS-10_5_5.ome.tif_atlas_2.png",
-                    "channels": [6, 7, 8]
-                }],
                 "name": "AICS-10_5_5",
-                "status": "OK",
                 "version": "0.0.0",
                 "aicsImageVersion": "0.3.0"
             };
 
+            // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
+            // according to tile_width*tile_height*tiles (first row of first plane is the first data in 
+            // the layout, then second row of first plane, etc)
             var channelVolumes = [];
             for (var i = 0; i < imgdata.channels; ++i) {
                 channelVolumes.push(new Uint8Array(volume.buffer.buffer, i*volsize, volsize));
