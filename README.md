@@ -21,6 +21,9 @@ We've used a stripped down version of 3D rendering provided by the [Allen Cell E
 ### Install
 
 `pip install ivvv` <- would be nice if it worked
+`jupyter nbextension install --py ivvv`
+`jupyter nbextension enable ivvv/extension`
+
 
 ## Detailed docs
 
