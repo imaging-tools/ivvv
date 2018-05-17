@@ -1,6 +1,4 @@
 # ivvv
-[![Build Status](https://travis-ci.org/imaging-tools/ivvv.svg?branch=master)](https://travis-ci.org/imaging-tools/ivvv)
-
 The *image voxel volume viewer* (pronounced _ivy_).  
 
 ## Wat?
@@ -18,7 +16,7 @@ Stripped down version of 3D renderes used 3D cell viewer.
 Standard scientific python toolkit.
 
 ## How?
-We've used a stripped down version of 3D rendering provided by the Allen Cell Explorer's 3D Cell Viewer.
+We've used a stripped down version of 3D rendering provided by the [Allen Cell Explorer's](https://allencell.org) [3D Cell Viewer.](https://github.com/dmt-aics/volume-viewer)
 
 ### Install
 
@@ -54,12 +52,12 @@ We've used a stripped down version of 3D rendering provided by the Allen Cell Ex
             },
             "minItems": 1,
             "uniqueItems": true
-        },
-        "rows": {
+        }
+         "rows": {
             "description": "Number of rows in tile array in each image.",
             "type": "integer"
         },
-        "cols": {
+         "cols": {
             "description": "Number of columns in tile array in each image.",
             "type": "integer"
         },
@@ -115,11 +113,11 @@ We've used a stripped down version of 3D rendering provided by the Allen Cell Ex
              },
                 "minItems": 1,
                 "uniqueItems": true
-             },
+             }
             "minItems": 1,
             "uniqueItems": true
             }
-        }, 
+        } 
          "version": {
             "description": "Current version of the schema.",
             "type": "string"
