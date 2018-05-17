@@ -1,4 +1,6 @@
 # ivvv
+[![Build Status](https://travis-ci.org/imaging-tools/ivvv.svg?branch=master)](https://travis-ci.org/imaging-tools/ivvv)
+
 The *image voxel volume viewer* (pronounced _ivy_).  
 
 ## Wat?
