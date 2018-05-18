@@ -10,6 +10,9 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             const size = this.model.get("size");
 
+            const density = this.model.get("density");
+            const brightness = this.model.get("brightness");
+
             const dimensions = this.model.get("dimensions");
 
             var volsize = volume.shape[1]*volume.shape[2]*volume.shape[3];
@@ -58,20 +61,32 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
 
             imgdata.volumedata = channelVolumes;
 
-            const aimg = new volumeViewerPackage.AICSvolumeDrawable(imgdata, "test");
+            this.aimg = new volumeViewerPackage.AICSvolumeDrawable(imgdata, "test");
 
             context.setCameraMode("3D");
 
-            context.setImage(aimg, () => {console.log("data channel loaded")});
+            context.setImage(this.aimg, () => {console.log("data channel loaded")});
 
-            aimg.setDensity(0.1);
-            aimg.setBrightness(1.0);
+            this.aimg.setDensity(density);
+            this.aimg.setBrightness(brightness);
 
             // this resize is being delayed so that parent elements have had a chance
             // to reflow and receive their sizing
             setTimeout(() => {
                 context.resize(this.el, size[0], size[1]);
             }, 100);
+
+            this.update();
+            this.listenTo(this.model, "change:density", this._density_changed)
+            this.listenTo(this.model, "change:brightness", this._brightness_changed)
+        },
+        _density_changed: function() {
+            //const olddensity = this.model.previous("density");
+            this.aimg.setDensity(this.model.get("density"));
+        },
+        _brightness_changed: function() {
+            //const olddensity = this.model.previous("density");
+            this.aimg.setBrightness(this.model.get("brightness"));
         }
     });
 

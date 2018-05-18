@@ -1,6 +1,7 @@
-import ivvv.img_prep
 import ipydatawidgets
 import ipywidgets
+from ipywidgets import interact, interactive, fixed, interact_manual
+import ivvv.img_prep
 import numpy
 import traitlets
 
@@ -21,8 +22,11 @@ class VolumeWidget(ipywidgets.DOMWidget):
 
     metadata = traitlets.Dict({"foo": "bar"}).tag(sync=True)
 
+    density = traitlets.Float(0.1).tag(sync=True)
+    brightness = traitlets.Float(0.1).tag(sync=True)
 
-def volshow(image, size=(256, 256), spacing=(1.0, 1.0, 1.0)):
+
+def volshow(image, size=(256, 256), spacing=(1.0, 1.0, 1.0), density=0.1, brightness=1.0):
     volume_widget = VolumeWidget()
 
     volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image, physical_pixel_size=spacing)
@@ -32,5 +36,12 @@ def volshow(image, size=(256, 256), spacing=(1.0, 1.0, 1.0)):
 
     if size:
         volume_widget.size = size
+
+    def setdensity(density=density):
+        volume_widget.density = density
+    interact(setdensity, density=(0.0, 1.0))
+    def setbrightness(brightness=brightness):
+        volume_widget.brightness = brightness
+    interact(setbrightness, brightness=(0.0, 1.0))
 
     return volume_widget
