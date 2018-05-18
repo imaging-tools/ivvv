@@ -22,7 +22,9 @@ log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
 
-LONG_DESCRIPTION = 'Interactive volumetric voxel viewing'
+def readme():
+    with open('README.rst') as f:
+        return f.read()
 
 def js_prerelease(command, strict=False):
     """decorator for building minified js/css prior to another command"""
@@ -128,7 +130,7 @@ setup_args = {
     'name': 'ivvv',
     'version': version_ns['__version__'],
     'description': 'Interactive volumetric voxel viewing',
-    'long_description': LONG_DESCRIPTION,
+    'long_description': readme(),
     'include_package_data': True,
     'data_files': [
         ('share/jupyter/nbextensions/ivvv', [
