@@ -1,6 +1,15 @@
+deploy:
+  on:
+    repo: imaging-tools/ivvv
+    tags: true
+  password:
+    secure: Sq4ZdzzXkRbVrcZd/nbdRaYTkrVo2tH+8dE80IdSAHuUwUeAU3Mc2QP6/2hkW3mtBB0rg9hXTGFalcynA9RYyCDwtSAoxUwYUHHNl9u4xQItexcX/3Czx7S1sqnHTIhM+PYyxIhZHcxsphjmrRBdCY+fyNn7unxdoXCMH44eWuNAl8wXs4tnWPBI+Ok6buVw7aVxVKr2qvdXaWJx4ptJtnclOrG3n/sM1KjWXPeVlXMssd1CTR0Ks66THDTeb6wCY/E8Q52zLsZTJ9DSTbMEYtmw52xV0+sN9bVU+CGPdw+hk+rn+kyPoUMfIgp8k/aTB5xggdf/hWR4o8bdYXyO/ljPPrrmMgPSz1dyX2GwAgdzmAOyL3YtNt4dTafqc3ye38yLHdUTf5vS+Kn2igTXreHeqRiEyBz/pYJA8XvuiyTz8VnDglmMAAv43iGsp1YzpIWQU1haixe8S1m4GSe8csN0rmresxPsQ+VpUi71rCl/SK+41YGjpm/xmu7gZ58enBRftG/J1z/+TzfKcPYNQwRthb/QPsbMy60OcYrWIg0KcSrllsg+Wok9kudcENQL3smkRT542zS+lvmxvw1Ko/AFKCoN0Gj/Gfy/2RhdevB+GjUiGJ92UNzPdM9KwoiW+X2eNtzxaitqdPbAchTGreKGOha9vLiuQE2ZeM5SvAg=
+  provider: pypi
+  skip_cleanup: true
+  user: '0x00B1'
 language: python
 python:
-  - "2.7"
-  - "3.6"
+- '2.7'
+- '3.6'
 script:
-  - pytest
+- pytest
