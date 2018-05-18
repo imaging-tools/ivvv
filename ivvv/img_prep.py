@@ -26,6 +26,7 @@ def resize_volume(image, output_shape):
 
     return response
 
+
 def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)):
     tile_width, tile_height, stack_height = aics_image.shape[1], aics_image.shape[2], aics_image.shape[0]
     # maintain aspect ratio of images
@@ -121,9 +122,9 @@ def img_prep(img, shape=(128, 128)):
     img : list of arrays
         one channel to each entry in the list
     """
-    # Norm and convert to 8 bit
-    img = numpy.multiply(255, _normalize(img)).astype(numpy.uint8)
     #  Resize
     img = resize_volume(img, (shape[0], shape[1]))
+
+    img = numpy.multiply(255, _normalize(img)).astype(numpy.uint8)
 
     return img
