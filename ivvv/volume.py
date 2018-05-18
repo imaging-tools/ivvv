@@ -26,9 +26,7 @@ def volshow(image, size=(256, 256), spacing=(1.0, 1.0, 1.0)):
     volume_widget = VolumeWidget()
 
     volume_widget.dimensions = ivvv.img_prep.atlas_dimensions(image, physical_pixel_size=spacing)
-    print(image.shape)
     image = ivvv.img_prep.img_prep(image, shape=(volume_widget.dimensions["tile_width"], volume_widget.dimensions["tile_height"]))
-    print(image.shape)
     image = image.transpose([0,2,1,3])
     volume_widget.image = [image[:, :, :, index] for index in range(image.shape[-1])]
 

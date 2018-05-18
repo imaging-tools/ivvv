@@ -16,8 +16,6 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             var channels = volume.shape[0];
             var tiles = volume.shape[1]; // slices
 
-            debugger;
-
             let context = new volumeViewerPackage.AICSview3d(this.el);
 
             // PREPARE SOME TEST DATA TO TRY TO DISPLAY A VOLUME.
@@ -69,6 +67,8 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             aimg.setDensity(0.1);
             aimg.setBrightness(1.0);
 
+            // this resize is being delayed so that parent elements have had a chance
+            // to reflow and receive their sizing
             setTimeout(() => {
                 context.resize(this.el, size[0], size[1]);
             }, 100);
