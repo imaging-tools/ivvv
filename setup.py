@@ -137,8 +137,10 @@ setup_args = {
             'ivvv/static/extension.js',
             'ivvv/static/index.js',
             'ivvv/static/index.js.map',
-        ],),
-        ('etc/jupyter/nbconfig/notebook.d/' ,['ivvv.json'])
+        ],)
+        # commenting this out because it breaks Windows build
+        # ,
+        # ('etc/jupyter/nbconfig/notebook.d/' ,['ivvv.json'])
     ],
     'install_requires': [
         'ipywidgets>=7.0.0',
