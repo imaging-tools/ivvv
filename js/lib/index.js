@@ -54,18 +54,16 @@ define("ivvv", ["@jupyter-widgets/base", "volume-viewer"], function(widgets, vol
             // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
             // according to tile_width*tile_height*tiles (first row of first plane is the first data in 
             // the layout, then second row of first plane, etc)
-            var channelVolumes = [];
-            for (var i = 0; i < imgdata.channels; ++i) {
-                channelVolumes.push(new Uint8Array(volume.buffer.buffer, i*volsize, volsize));
-            }
-
-            imgdata.volumedata = channelVolumes;
 
             this.aimg = new volumeViewerPackage.AICSvolumeDrawable(imgdata, "test");
 
             context.setCameraMode("3D");
 
             context.setImage(this.aimg, () => {console.log("data channel loaded")});
+            // pass the volume data into the image.
+            for (var i = 0; i < imgdata.channels; ++i) {
+                this.aimg.setChannelDataFromVolume(i, new Uint8Array(volume.buffer.buffer, i*volsize, volsize));
+            }
 
             this.aimg.setDensity(density);
             this.aimg.setBrightness(brightness);
