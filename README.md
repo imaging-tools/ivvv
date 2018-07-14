@@ -22,10 +22,14 @@ We've used a stripped down version of 3D rendering provided by the [Allen Cell E
 
 
 
-### Demo Notebook
+### Demo Notebooks
+
+- [Foam 3D](https://mybinder.org/v2/gh/kmader/ivvv/patch-2?filepath=examples%2Ffoam_3d.ipynb)
+
+#### Under development
 
 - [Demo](https://mybinder.org/v2/gh/kmader/ivvv/patch-2?filepath=examples%2Fdemo.ipynb)
-- Hello World (In Progress)
+- [Hello World](https://mybinder.org/v2/gh/kmader/ivvv/patch-2?filepath=examples%2Fhello_world.ipynb)
 
 ### Install
 
