@@ -1,4 +1,4 @@
-name: earth-analytics-python
+name: ivvv-env
 channels:
   - conda-forge
 dependencies:
