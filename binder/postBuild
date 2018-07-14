@@ -2,3 +2,7 @@
 pip install .
 jupyter nbextension install --py ivvv
 jupyter nbextension enable ivvv --py
+# extract the example datasets
+cd examples/
+unzip *.zip
+cd ..
