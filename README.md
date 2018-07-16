@@ -1,7 +1,9 @@
 # ivvv
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/imaging-tools/ivvv)
+
 The *image voxel volume viewer* (pronounced _ivy_).  
 
-## Wat?
+## What?
 *ivvv* is an attmept to provide a lightweight, minimal volume viewer for interactive data exploration in jupyter.
 (This is a jupyter widget that provide volumetric rendering given a multiple channel zstack as a numpy array.)
 
@@ -17,6 +19,17 @@ Standard scientific python toolkit.
 
 ## How?
 We've used a stripped down version of 3D rendering provided by the [Allen Cell Explorer's](https://allencell.org) [3D Cell Viewer.](https://github.com/dmt-aics/volume-viewer)
+
+
+
+### Demo Notebooks
+
+- [Foam 3D](https://mybinder.org/v2/gh/imaging-tools/ivvv?filepath=examples%2Ffoam_3d.ipynb)
+
+#### Under development
+
+- [Demo](https://mybinder.org/v2/gh/imaging-tools/ivvv?filepath=examples%2Fdemo.ipynb)
+- [Hello World](https://mybinder.org/v2/gh/imaging-tools/ivvv?filepath=examples%2Fhello_world.ipynb)
 
 ### Install
 
