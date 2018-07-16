@@ -1,5 +1,5 @@
 # ivvv
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/imaging-tools/ivvv)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/imaging-tools/ivvv/master)
 
 The *image voxel volume viewer* (pronounced _ivy_).  
 
