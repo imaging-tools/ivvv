@@ -26,12 +26,13 @@
   },
   "devDependencies": {
     "webpack": "^3.5.5",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "worker-loader": "^1.0.0"
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1.0.0",
     "lodash": "^4.17.4",
-    "volume-viewer": "^1.0.7"
+    "@aics/volume-viewer": "^2.0.2"
   },
   "jupyterlab": {
     "extension": "lib/labplugin"

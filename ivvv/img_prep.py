@@ -27,8 +27,14 @@ def resize_volume(image, output_shape):
     return response
 
 
-def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)):
-    tile_width, tile_height, stack_height = aics_image.shape[1], aics_image.shape[2], aics_image.shape[0]
+def atlas_dimensions(
+    aics_image, max_edge=2048, channel_names=None, physical_pixel_size=(1.0, 1.0, 1.0)
+):
+    tile_width, tile_height, stack_height = (
+        aics_image.shape[1],
+        aics_image.shape[2],
+        aics_image.shape[0],
+    )
     # maintain aspect ratio of images
     # initialize atlas with one row of all slices
     atlas_width = tile_width * stack_height
@@ -41,7 +47,9 @@ def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pix
         new_rows = math.ceil(float(stack_height) / r)
         adjusted_width = int(tile_width * new_rows)
         adjusted_height = int(tile_height * r)
-        new_ratio = float(max(adjusted_width, adjusted_height)) / float(min(adjusted_width, adjusted_height))
+        new_ratio = float(max(adjusted_width, adjusted_height)) / float(
+            min(adjusted_width, adjusted_height)
+        )
         if new_ratio < ratio:
             ratio = new_ratio
             atlas_width = adjusted_width
@@ -54,8 +62,8 @@ def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pix
     rows = int(atlas_height // tile_height)
 
     if max_edge < atlas_width or max_edge < atlas_height:
-        tile_width = math.floor(max_edge/cols)
-        tile_height = math.floor(max_edge/rows)
+        tile_width = math.floor(max_edge / cols)
+        tile_height = math.floor(max_edge / rows)
         atlas_width = tile_width * cols
         atlas_height = tile_height * rows
 
@@ -69,13 +77,13 @@ def atlas_dimensions(aics_image, max_edge=2048, channel_names=None, physical_pix
         "width": aics_image.shape[1],
         "height": aics_image.shape[2],
         "channels": aics_image.shape[3],
-        "tiles": aics_image.shape[0]
+        "tiles": aics_image.shape[0],
     }
 
     if channel_names is not None:
         dims["channel_names"] = channel_names
     else:
-        dims["channel_names"] = ['CH_'+str(i) for i in range(aics_image.shape[3])]
+        dims["channel_names"] = ["CH_" + str(i) for i in range(aics_image.shape[3])]
 
     if physical_pixel_size is not None:
         dims["pixel_size_x"] = physical_pixel_size[0]

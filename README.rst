@@ -27,4 +27,4 @@ Install
 ``jupyter nbextension enable ivvv --py``
 
 .. _Allen Cell Explorer’s: https://allencell.org
-.. _3D Cell Viewer.: https://github.com/dmt-aics/volume-viewer
+.. _3D Cell Viewer.: https://github.com/AllenInstitute/volume-viewer
