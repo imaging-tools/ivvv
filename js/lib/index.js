@@ -69,7 +69,7 @@ define("ivvv", ["@jupyter-widgets/base", "@aics/volume-viewer"], function (
           i,
           new Uint8Array(volume.buffer.buffer, i * volsize, volsize)
         );
-        //this.aimg.channels[i].lutGenerator_percentiles(0.5, 0.998);
+        this.aimg.channels[i].lutGenerator_percentiles(0.5, 0.998);
       }
       // enable only the first channel
       //   for (var ch = 0; ch < this.aimg.num_channels; ++ch) {
