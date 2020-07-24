@@ -1,10 +1,64 @@
 var path = require("path");
+var fs = require("fs");
 var version = require("./package.json").version;
+
+const lessToJs = require("less-vars-to-js");
+const themeVariables = lessToJs(
+  fs.readFileSync(path.join(__dirname, "./lib/styles/ant-vars.less"), "utf8")
+);
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // Custom webpack rules are generally the same for all webpack bundles, hence
 // stored in a separate local variable.
 var rules = [
+  //  {
+  //    test: /\.(js|jsx)$/,
+  //    exclude: /node_modules/,
+  //    use: ["babel-loader"],
+  //  },
   { test: /\.css$/, use: ["style-loader", "css-loader"] },
+  {
+    test: /\.scss$/,
+    use: [
+      "style-loader",
+      {
+        loader: "css-loader",
+        options: {
+          sourceMap: true,
+        },
+      },
+      "resolve-url-loader",
+      {
+        loader: "sass-loader",
+        options: {
+          sourceMap: true,
+          //          includePaths: [`${__dirname}/src/aics-image-viewer/assets/styles`]
+        },
+      },
+    ],
+  },
+  {
+    test: /\.less$/,
+    use: ExtractTextPlugin.extract({
+      use: [
+        {
+          loader: "css-loader",
+          options: {
+            camelCase: true,
+            importLoaders: 1,
+          },
+        },
+        {
+          loader: "less-loader",
+          options: {
+            javascriptEnabled: true,
+            modifyVars: themeVariables,
+          },
+        },
+      ],
+    }),
+  },
+
   {
     test: /Worker\.js$/,
     use: "worker-loader?inline=true",

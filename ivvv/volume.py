@@ -49,14 +49,14 @@ def volshow(
     if size:
         volume_widget.size = size
 
-    def setdensity(density=density):
-        volume_widget.density = density
+    # def setdensity(density=density):
+    #     volume_widget.density = density
 
-    interact(setdensity, density=(0.0, 1.0))
+    # interact(setdensity, density=(0.0, 1.0))
 
-    def setbrightness(brightness=brightness):
-        volume_widget.brightness = brightness
+    # def setbrightness(brightness=brightness):
+    #     volume_widget.brightness = brightness
 
-    interact(setbrightness, brightness=(0.0, 1.0))
+    # interact(setbrightness, brightness=(0.0, 1.0))
 
     return volume_widget

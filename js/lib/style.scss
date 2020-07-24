@@ -1,0 +1,20 @@
+.cell-viewer {
+  flex: 1;
+  width: 100%;
+}
+
+.cell-viewer :global(.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow) {
+  transform: translateY(-250%);
+}
+
+.cell-viewer :global(.control-panel-holder) {
+  overflow: visible;
+}
+
+.cell-viewer :global(.ant-layout-sider-children) {
+  overflow: scroll;
+}
+
+.cell-viewer :global(.ant-layout-sider-zero-width-trigger) {
+  z-index: 999 !important;
+}

@@ -1,0 +1,11 @@
+:root {
+    --background-dark-gray: #131313;
+    --background-dim-gray: #383838;
+    --purple: #8048f3;
+    --dimgray: #6e6e6e;
+    --highlight-green: #b2d030;
+    --text-gray: #a0a0a0;
+    --header-gray: #4b4b4b;
+    --light-gray: #aeacae;
+    --border-gray: var(--dimgray);
+}

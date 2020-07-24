@@ -1,9 +1,19 @@
-//import {AICSview3d, ACISmakeVolumes, AICSvolumeDrawable} from 'volume-viewer';
-//require.undef("ivvv");
+//import "./style.css";
 
-define("ivvv", ["@jupyter-widgets/base", "@aics/volume-viewer"], function (
+define("ivvv", [
+  "@jupyter-widgets/base",
+  "@aics/volume-viewer",
+  "D:/website-3d-cell-viewer/dist/index.js", //"ac-3d-viewer",
+  "react-dom",
+  "./style.scss",
+  "antd/dist/antd.css",
+], function (
   widgets,
-  volumeViewerPackage
+  volumeViewerPackage,
+  ImageViewerApp,
+  ReactDOM,
+  stylecss,
+  antdcss
 ) {
   var VolumeWidgetView = widgets.DOMWidgetView.extend({
     render: function () {
@@ -21,38 +31,86 @@ define("ivvv", ["@jupyter-widgets/base", "@aics/volume-viewer"], function (
       var volsize = volume.shape[1] * volume.shape[2] * volume.shape[3];
       var channels = volume.shape[0];
       var tiles = volume.shape[1]; // slices
+      /*
+      ReactDOM.render(
+        <ImageViewerApp
+          baseUrl="https://s3-us-west-2.amazonaws.com/bisque.allencell.org/v1.4.0/Cell-Viewer_Thumbnails"
+          cellDownloadHref="https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=C40515"
+          cellId={40515}
+          cellPath="AICS-25/AICS-25_5561_40515"
+          defaultSurfacesOn={[]}
+          defaultVolumesOn={[0, 1, 2]}
+          fovDownloadHref="https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=F5561"
+          fovPath="AICS-25/AICS-25_5561"
+          //keyList={["observed", "segmentation", "contour"]}
+          renderConfig={{
+            alphaMask: true,
+            autoRotateButton: true,
+            axisClipSliders: true,
+            brightnessSlider: true,
+            colorPicker: true,
+            colorPresetsDropdown: true,
+            densitySlider: true,
+            fovCellSwitchControls: true,
+            levelsSliders: true,
+            saveSurfaceButtons: true,
+            viewModeRadioButtons: true,
+          }}
+        />,
+        this.el
+      );
+      */
+      ReactDOM.render(
+        React.createElement(
+          "div",
+          { className: "cell-viewer" },
 
+          React.createElement(
+            ImageViewerApp.ImageViewerApp,
+            {
+              rawData: volume,
+              rawDims: dimensions,
+              //appHeight: "30vh",
+              //   baseUrl:
+              //     "https://s3-us-west-2.amazonaws.com/bisque.allencell.org/v1.4.0/Cell-Viewer_Thumbnails",
+              //   cellDownloadHref:
+              //     "https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=C40515",
+              //   cellId: 40515,
+              //   cellPath: "AICS-25/AICS-25_5561_40515",
+              defaultSurfacesOn: [],
+              defaultVolumesOn: [0],
+              //   fovDownloadHref:
+              //     "https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=F5561",
+              //   fovPath: "AICS-25/AICS-25_5561",
+              initialChannelAcc: { Channels: [] },
+              keyList: ["Channels"],
+              groupToChannelNameMap: {
+                Channels: dimensions.channel_names,
+              },
+              renderConfig: {
+                alphaMask: true,
+                autoRotateButton: true,
+                axisClipSliders: true,
+                brightnessSlider: true,
+                colorPicker: true,
+                colorPresetsDropdown: true,
+                densitySlider: true,
+                fovCellSwitchControls: false,
+                levelsSliders: true,
+                saveSurfaceButtons: true,
+                viewModeRadioButtons: true,
+              },
+            },
+            null
+          )
+        ),
+        this.el
+      );
+      /*
       this.context = new volumeViewerPackage.View3d(this.el);
 
       // PREPARE SOME TEST DATA TO TRY TO DISPLAY A VOLUME.
       let imgdata = dimensions;
-      // let imgdata = {
-      //     "width": 256,
-      //     "height": 256,
-      //     "channels": channels,
-      //     "channel_names": ["DRAQ5", "EGFP", "Hoechst 33258", "TL Brightfield", "SEG_STRUCT", "SEG_Memb", "SEG_DNA", "CON_Memb", "CON_DNA"],
-      //     "rows": 2,
-      //     "cols": 5,
-      //     "tiles": tiles,
-      //     "tile_width": volume.shape[2],
-      //     "tile_height": volume.shape[3],
-      //     "atlas_width": 5 * volume.shape[2],
-      //     "atlas_height": 2 * volume.shape[3],
-      //     "pixel_size_x": 1,
-      //     "pixel_size_y": 1,
-      //     "pixel_size_z": 1,
-      //     // atlas_width === cols*tile_width
-      //     // atlas_height === rows*tile_height
-      //     // for webgl reasons, it is best for atlas_width and atlas_height to be <= 2048
-      //     // and ideally a power of 2.
-      //     // tiles <= rows*cols, tiles is number of z slices
-      //     // width := original full size image width
-      //     // height := original full size image height
-
-      //     "name": "AICS-10_5_5",
-      //     "version": "0.0.0",
-      //     "aicsImageVersion": "0.3.0"
-      // };
 
       // where volumedata is an array of channels, where each channel is a flat Uint8Array of xyz data
       // according to tile_width*tile_height*tiles (first row of first plane is the first data in
@@ -92,15 +150,20 @@ define("ivvv", ["@jupyter-widgets/base", "@aics/volume-viewer"], function (
       this.update();
       this.listenTo(this.model, "change:density", this._density_changed);
       this.listenTo(this.model, "change:brightness", this._brightness_changed);
+      */
     },
-    _density_changed: function () {
-      //const olddensity = this.model.previous("density");
-      this.context.updateDensity(this.aimg, this.model.get("density"));
-    },
-    _brightness_changed: function () {
-      //const olddensity = this.model.previous("density");
-      this.context.updateExposure(this.model.get("brightness"));
-    },
+    // _density_changed: function () {
+    //   //const olddensity = this.model.previous("density");
+    //   if (this.context) {
+    //     this.context.updateDensity(this.aimg, this.model.get("density"));
+    //   }
+    // },
+    // _brightness_changed: function () {
+    //   //const olddensity = this.model.previous("density");
+    //   if (this.context) {
+    //     this.context.updateExposure(this.model.get("brightness"));
+    //   }
+    // },
   });
 
   return {
