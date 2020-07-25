@@ -3,17 +3,17 @@
 define("ivvv", [
   "@jupyter-widgets/base",
   "@aics/volume-viewer",
-  "D:/website-3d-cell-viewer/dist/index.js", //"ac-3d-viewer",
+  "/Users/danielt/src/website-3d-cell-viewer/dist/index.js", //"ac-3d-viewer",
   "react-dom",
-  "./style.scss",
   "antd/dist/antd.css",
+  "./style.scss",
 ], function (
   widgets,
   volumeViewerPackage,
   ImageViewerApp,
   ReactDOM,
+  antdcss,
   stylecss,
-  antdcss
 ) {
   var VolumeWidgetView = widgets.DOMWidgetView.extend({
     render: function () {
@@ -62,27 +62,20 @@ define("ivvv", [
       */
       ReactDOM.render(
         React.createElement(
-          "div",
-          { className: "cell-viewer" },
+          "div", {
+            className: "cell-viewer"
+          },
 
           React.createElement(
-            ImageViewerApp.ImageViewerApp,
-            {
+            ImageViewerApp.ImageViewerApp, {
               rawData: volume,
               rawDims: dimensions,
-              //appHeight: "30vh",
-              //   baseUrl:
-              //     "https://s3-us-west-2.amazonaws.com/bisque.allencell.org/v1.4.0/Cell-Viewer_Thumbnails",
-              //   cellDownloadHref:
-              //     "https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=C40515",
-              //   cellId: 40515,
-              //   cellPath: "AICS-25/AICS-25_5561_40515",
+              appHeight: "50vh",
               defaultSurfacesOn: [],
               defaultVolumesOn: [0],
-              //   fovDownloadHref:
-              //     "https://files.allencell.org/api/2.0/file/download?collection=cellviewer-1-4&id=F5561",
-              //   fovPath: "AICS-25/AICS-25_5561",
-              initialChannelAcc: { Channels: [] },
+              initialChannelAcc: {
+                Channels: []
+              },
               keyList: ["Channels"],
               groupToChannelNameMap: {
                 Channels: dimensions.channel_names,

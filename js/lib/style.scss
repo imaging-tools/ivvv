@@ -1,10 +1,11 @@
 .cell-viewer {
+  display: flex;
   flex: 1;
   width: 100%;
 }
 
 .cell-viewer :global(.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow) {
-  transform: translateY(-250%);
+  transform: translateY(-100%);
 }
 
 .cell-viewer :global(.control-panel-holder) {

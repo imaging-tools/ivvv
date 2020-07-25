@@ -10,8 +10,13 @@ __all__ = ["img_prep"]
 def resize(image, output_shape):
     response = numpy.zeros((image.shape[0], *output_shape))
 
+    # output_shape is xy, while image.shape is zxy ?
+    downsampling = output_shape[0] < image.shape[1]
+
     for index, image in enumerate(image):
-        response[index] = skimage.transform.resize(image, output_shape, mode="reflect")
+        response[index] = skimage.transform.resize(
+            image, output_shape, mode="reflect", anti_aliasing=downsampling
+        )
 
     return response
 
@@ -124,6 +129,8 @@ def img_prep(img, shape=(128, 128)):
     size_lim : int
         largest dimension allowed
     shape : tuple(int)
+        This is the volume's preferred xy size for texture atlassing for realtime display
+        as computed by atlas_dimemsions
     
     Returns
     -------
