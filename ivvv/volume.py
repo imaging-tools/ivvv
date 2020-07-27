@@ -33,12 +33,10 @@ def volshow(
 ):
     volume_widget = VolumeWidget()
 
-    dims_object = ivvv.img_prep.atlas_dimensions(
-        image, physical_pixel_size=spacing
-    )
+    dims_object = ivvv.img_prep.atlas_dimensions(image, physical_pixel_size=spacing)
     dims_object["name"] = "Image0"
     volume_widget.dimensions = dims_object
-    
+
     image = ivvv.img_prep.img_prep(
         image,
         shape=(

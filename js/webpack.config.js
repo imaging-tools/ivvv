@@ -6,17 +6,19 @@ const lessToJs = require("less-vars-to-js");
 const themeVariables = lessToJs(
   fs.readFileSync(path.join(__dirname, "./lib/styles/ant-vars.less"), "utf8")
 );
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // Custom webpack rules are generally the same for all webpack bundles, hence
 // stored in a separate local variable.
-var rules = [
-  //  {
-  //    test: /\.(js|jsx)$/,
-  //    exclude: /node_modules/,
-  //    use: ["babel-loader"],
-  //  },
-  { test: /\.css$/, use: ["style-loader", "css-loader"] },
+var rules = [{
+    test: /\.(ts|tsx|js|jsx)$/,
+    exclude: /node_modules/,
+    use: ["babel-loader"],
+  },
+  {
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"],
+  },
   {
     test: /\.scss$/,
     use: [
@@ -39,24 +41,7 @@ var rules = [
   },
   {
     test: /\.less$/,
-    use: ExtractTextPlugin.extract({
-      use: [
-        {
-          loader: "css-loader",
-          options: {
-            camelCase: true,
-            importLoaders: 1,
-          },
-        },
-        {
-          loader: "less-loader",
-          options: {
-            javascriptEnabled: true,
-            modifyVars: themeVariables,
-          },
-        },
-      ],
-    }),
+    use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
   },
 
   {
@@ -65,8 +50,7 @@ var rules = [
   },
 ];
 
-module.exports = [
-  {
+module.exports = [{
     // Notebook extension
     //
     // This bundle only contains the part of the JavaScript that is run on
