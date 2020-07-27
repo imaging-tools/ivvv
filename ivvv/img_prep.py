@@ -8,26 +8,20 @@ __all__ = ["img_prep"]
 
 
 def resize(image, output_shape):
-    response = numpy.zeros((image.shape[0], *output_shape))
+    scale = (
+        float(output_shape[0]) / float(image.shape[1]),
+        float(output_shape[1]) / float(image.shape[2]),
+    )
 
-    # output_shape is xy, while image.shape is zxy ?
-    downsampling = output_shape[0] < image.shape[1]
+    response = numpy.zeros((image.shape[0], output_shape[0], output_shape[1]))
 
-    for index, image in enumerate(image):
-        response[index] = skimage.transform.resize(
-            image, output_shape, mode="reflect", anti_aliasing=downsampling
+    for index, image_plane in enumerate(image):
+        response[index] = skimage.transform.rescale(
+            image_plane, scale, preserve_range=True
         )
-
-    return response
-
-
-def resize_volume(image, output_shape):
-    channels = image.shape[-1]
-
-    response = numpy.zeros((image.shape[0], *output_shape, channels))
-
-    for channel_index in range(channels):
-        response[..., channel_index] = resize(image[..., channel_index], output_shape)
+        # response[index] = skimage.transform.resize(
+        #     image_plane, output_shape, mode="reflect", anti_aliasing=downsampling
+        # )
 
     return response
 
@@ -102,23 +96,6 @@ def atlas_dimensions(
     return dims
 
 
-def _normalize(img):
-    """Convert to zero-one"""
-    return numpy.divide(img - numpy.min(img), numpy.max(img) - numpy.min(img))
-
-
-def _resize(img, max_dim=128):
-    """Resize (plane, row, column, channel) image
-    such that the max size in any dimension is max_dim
-    """
-    if max(img.shape[:3]) <= max_dim:
-        return img
-    else:
-        new_size = [max_dim / s if s >= max_dim else 1.0 for s in img.shape[:3]]
-        new_size.append(1.0)  # for channel
-        return scipy.ndimage.zoom(img, new_size, order=2)
-
-
 def img_prep(img, shape=(128, 128)):
     """Given an input n dimensional image, prep for display
 
@@ -137,9 +114,26 @@ def img_prep(img, shape=(128, 128)):
     img : list of arrays
         one channel to each entry in the list
     """
-    #  Resize
-    img = resize_volume(img, (shape[0], shape[1]))
 
-    img = numpy.multiply(255, _normalize(img)).astype(numpy.uint8)
+    # z y x c ?
+    channels = img.shape[-1]
 
-    return img
+    response = numpy.zeros(
+        (img.shape[0], shape[0], shape[1], channels), dtype=numpy.uint8
+    )
+
+    for channel_index in range(channels):
+        channel_data = img[..., channel_index]
+        channel_data = channel_data.astype(numpy.float32)
+
+        resized_channel = resize(channel_data, (shape[0], shape[1]))
+
+        mn = min(0, resized_channel.min())
+        mx = resized_channel.max()
+        resized_channel = 255.0 * (resized_channel - mn) / (mx - mn)
+        # atlas = np.interp(atlas, (min(0, atlas.min()), atlas.max()), (0.0, 255.0))
+        resized_channel = resized_channel.astype(numpy.uint8)
+
+        response[..., channel_index] = resized_channel
+
+    return response
