@@ -65,10 +65,13 @@ var VolumeWidgetView = widgets.DOMWidgetView.extend({
     ReactDOM.render(app, $app);
 
     view.el.append($app);
+
+    // force a resize event to get the 3d view to refresh with an actual size.
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 200);
+
   },
-  // render: function() {
-  //   VolumeWidgetView.__super__.render.apply(this, arguments);
-  // },
 });
 
 export {
