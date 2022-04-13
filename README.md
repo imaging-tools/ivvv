@@ -1,3 +1,6 @@
+# THIS REPOSITORY IS DEPRECATED
+Please visit https://github.com/allen-cell-animated/nbvv for the newer and more fully featured version of this notebook extension.
+
 # ivvv
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/imaging-tools/ivvv/master)
 
